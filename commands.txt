@@ -1,0 +1,16 @@
+flask --app main.py db init
+
+flask --app main.py db migrate -m "Initial migration"
+
+flask --app main.py db upgrade
+
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(basedir, 'db')
+os.makedirs(db_path, exist_ok=True)  # Убедимся, что папка существует
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(db_path, "mars_explorer.db")}?check_same_thread=False'
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)

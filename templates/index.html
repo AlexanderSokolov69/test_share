@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Журнал работ</h2>
+{% if current_user.is_authenticated %}
+    <a href="/add_job" class="btn btn-secondary">Добавить</a>
+{% endif %}
+{% for item in jobs %}
+<div>
+    <h3>Задача #{{item.id}} {{item.start_date.strftime("%d.%m.%Y - %H:%M:%S") }}</h3>
+    <table class="table">
+    <thead>
+        <tr>
+            <td class="table-secondary">Описание</td>
+            <td class="table-secondary">Руководитель</td>
+            <td class="table-secondary">Продолжительность</td>
+            <td class="table-secondary">Исполнители</td>
+            <td class="table-secondary">Завершена?</td>
+        </tr>
+    </thead>
+        <tbody>
+        <tr>
+        <td class="table-primary">{{item.job}}</td>
+        <td class="table-primary">{{item.user.name}} {{item.user.surname}}</td>
+        <td class="table-primary">{{item.work_size}} час.</td>
+        <td class="table-primary">{{item.collaborators}}</td>
+            {% if item.is_finished %}
+                <td class="table-success">Да</td>
+            {% else %}
+                <td class="table-danger">Нет</td>
+            {% endif %}
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+{% endblock %}
