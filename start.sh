@@ -1,6 +1,6 @@
 #!/bin/bash
 cd test_share # Your app working directory!!!
-export PORT=5050
+export PORT=5060
 unset PIP_USER
 
 # Create venv if not exists
